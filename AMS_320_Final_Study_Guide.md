@@ -106,7 +106,7 @@ $$P = C e^{-R_1 t_1} + C e^{-R_2 t_2} + \dots + (C + \text{Face}) e^{-R_n t_n}$$
 
 All $R_i$ for $i < n$ are known. Solve for $R_n$:
 
-$$R_n = -\frac{1}{t_n}\ln\left(\frac{P - \sum_{i<n} C e^{-R_i t_i}}{C + \text{Face}}\right)$$
+$$R_n = -\frac{1}{t_n}\ln\left(\frac{P - \sum_{i=1}^{n-1} C \cdot e^{-R_i t_i}}{C + \text{Face}}\right)$$
 
 **Critical reminders:**
 - Last cash flow is **coupon + face value**, not just the coupon
