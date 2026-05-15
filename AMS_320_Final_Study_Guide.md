@@ -79,12 +79,12 @@ $$q = r - \frac{1}{T}\ln\left(\frac{F_0}{S_0}\right) = 0.1864 - 3\ln(1.05) = 0.0
 ### Worked Example (Practice Problem 2)
 
 (a) Stock at \$100, $r = 8\%$, $T = 1$ year, no dividends.
-- $F_0 = 100 e^{0.08} = \$108.33$
-- $f_0 = \$0$
+- $F_0 = 100 e^{0.08}$ = \$108.33
+- $f_0$ = \$0
 
 (b) 9 months later, $S = 110$, 3 months left.
-- New forward price: $F = 110 e^{0.08 \times 0.25} = \$112.22$
-- Value of original contract: $f = (112.22 - 108.33) e^{-0.08 \times 0.25} = \$3.82$
+- New forward price: $F = 110 e^{0.08 \times 0.25}$ = \$112.22
+- Value of original contract: $f = (112.22 - 108.33) e^{-0.08 \times 0.25}$ = \$3.82
 
 **Common trap:** Forgetting to discount the value back to today.
 
@@ -125,6 +125,7 @@ where:
 - $d_n$ = discount factor at final maturity
 
 **Setup from scratch (if you forget the formula):**
+
 $$\text{Face} = \frac{c}{m}\sum_i d_i + \text{Face} \cdot d_n$$
 
 then isolate $c$.
@@ -144,9 +145,11 @@ $$R_F = \frac{R_2 T_2 - R_1 T_1}{T_2 - T_1}$$
 ### Compounding Conversions
 
 **Continuous → $m$-times-per-year:**
+
 $$R_m = m\left(e^{R_c/m} - 1\right)$$
 
 **$m$-times-per-year → Continuous:**
+
 $$R_c = m\ln\left(1 + \frac{R_m}{m}\right)$$
 
 ---
@@ -196,6 +199,7 @@ $$c_2 \leq \frac{1}{2}(c_1 + c_3)$$
 ### Cox-Ross-Rubinstein Parameters
 
 If volatility $\sigma$ is given:
+
 $$u = e^{\sigma\sqrt{\Delta t}}, \quad d = 1/u, \quad \tilde{p} = \frac{e^{(r-q)\Delta t} - d}{u - d}$$
 
 If $u, d$ are given directly (like Problem 9), use them as-is.
@@ -228,6 +232,7 @@ $$f_{\text{node}} = \max(\text{continuation}, \text{exercise})$$
 ### Delta (Hedge Ratio)
 
 At any node:
+
 $$\Delta = \frac{f_{\text{up}} - f_{\text{down}}}{S_{\text{up}} - S_{\text{down}}}$$
 
 **Hedge sign rules:**
@@ -246,7 +251,9 @@ $$\Delta = \frac{f_{\text{up}} - f_{\text{down}}}{S_{\text{up}} - S_{\text{down}
 
 1. Compute log returns: $u_i = \ln(S_i / S_{i-1})$
 2. Compute sample standard deviation $s$ with divisor $n-1$:
+
 $$s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (u_i - \bar{u})^2}$$
+
 3. Annualize: $\hat{\sigma} = s / \sqrt{\tau}$ where $\tau$ is the period length in years
 
 ### Annualization Factors (Square-Root-of-Time Rule)
@@ -366,15 +373,19 @@ What distinguishes different derivatives is the **boundary condition** at $t = T
 For a European call/put on a non-dividend stock:
 
 $$c = S_0 N(d_1) - K e^{-rT} N(d_2)$$
+
 $$p = K e^{-rT} N(-d_2) - S_0 N(-d_1)$$
 
 where:
+
 $$d_1 = \frac{\ln(S_0/K) + (r + \sigma^2/2)T}{\sigma\sqrt{T}}, \quad d_2 = d_1 - \sigma\sqrt{T}$$
 
 ### Dividend-Yield Version
 
 For a stock with continuous dividend yield $q$:
+
 $$c = S_0 e^{-qT} N(d_1) - K e^{-rT} N(d_2)$$
+
 $$d_1 = \frac{\ln(S_0/K) + (r - q + \sigma^2/2)T}{\sigma\sqrt{T}}, \quad d_2 = d_1 - \sigma\sqrt{T}$$
 
 ### Problem 13 — Direct BSM Application
@@ -399,6 +410,7 @@ $$d_1 = \frac{\ln(105/100) + (0.10 + 0.09/2)(0.75)}{0.30\sqrt{0.75}}$$
 Step 2: Plug into BSM formula:
 
 $$c = 105 \cdot N(0.6065) - 100 e^{-0.10 \times 0.75} N(0.3467)$$
+
 $$c = 105 \cdot N(0.6065) - 92.77 \cdot N(0.3467)$$
 
 Leave as $N(d_1)$, $N(d_2)$ unless the exam asks for the numeric value.
@@ -412,11 +424,13 @@ $$c = e^{-rT} \cdot \tilde{E}[\max(S_T - K, 0)]$$
 Under the risk-neutral measure, $S_T = S_0 \exp\left[(r - \sigma^2/2)T + \sigma\sqrt{T}\,Z\right]$ where $Z \sim N(0,1)$.
 
 So:
+
 $$c = e^{-rT} \int_{-\infty}^{\infty} \max(S_T(z) - K, 0) \phi(z)\,dz$$
 
 where $\phi(z)$ is the standard normal density.
 
 The integrand is nonzero only when $S_T > K$, i.e., when:
+
 $$Z > \frac{\ln(K/S_0) - (r - \sigma^2/2)T}{\sigma\sqrt{T}} = -d_2$$
 
 Evaluating the integral splits into two pieces:
@@ -425,6 +439,7 @@ Evaluating the integral splits into two pieces:
 **Piece 2:** $e^{-rT} \cdot K \cdot \tilde{P}(S_T > K) = K e^{-rT} N(d_2)$
 
 Subtracting:
+
 $$c = S_0 N(d_1) - K e^{-rT} N(d_2)$$
 
 This is the no-arbitrage derivation of the BSM formula. It shows *why* the formula has the structure it does.
@@ -444,9 +459,11 @@ with boundary condition $f(S,T) = \max(S^3 - K, 0)$.
 1. Let $Y_t = S_t^3$. Then payoff = $\max(Y_T - K, 0)$ — a standard call on $Y$.
 
 2. Apply Itô's Lemma to find the process for $Y$:
+
 $$dY = 3(\mu + \sigma^2)Y\,dt + 3\sigma Y\,dz$$
 
 3. Under the risk-neutral measure ($\mu \to r$):
+
 $$dY = 3(r + \sigma^2)Y\,dt + 3\sigma Y\,dz$$
 
 4. Treat $Y$ as an asset with:
@@ -455,9 +472,11 @@ $$dY = 3(r + \sigma^2)Y\,dt + 3\sigma Y\,dz$$
    - Dividend yield: $q_Y = r - 3(r + \sigma^2) = -2r - 3\sigma^2$ (negative!)
 
 5. Apply dividend-yield BSM:
+
 $$f(0) = S_0^3 e^{(2r + 3\sigma^2)T} N(d_1) - K e^{-rT} N(d_2)$$
 
 where:
+
 $$d_1 = \frac{\ln(S_0^3/K) + (3r + \frac{15\sigma^2}{2})T}{3\sigma\sqrt{T}}, \quad d_2 = d_1 - 3\sigma\sqrt{T}$$
 
 **Why negative dividend yield?** It's a bookkeeping device meaning "$Y$ grows faster than $r$ under risk-neutral measure."
@@ -475,7 +494,8 @@ This is the formula that drives Hull 15.12.
 ## 8. Hull 15.12: Derivative Paying $S_T^n$ (Final Problem 11)
 
 > A derivative pays $S_T^n$ at time $T$. Show its price at time $t$ has the form $h(t,T) S^n$ where:
-> $$h(t,T) = \exp\left\{\left[\frac{1}{2}\sigma^2 n(n-1) + r(n-1)\right](T-t)\right\}$$
+
+$$h(t,T) = \exp\left\{\left[\frac{1}{2}\sigma^2 n(n-1) + r(n-1)\right](T-t)\right\}$$
 
 ### Setup
 
@@ -497,11 +517,13 @@ Factor out $S^n$ (it's nonzero):
 $$h'(t) + rn \cdot h(t) + \frac{1}{2}\sigma^2 n(n-1) h(t) = r h(t)$$
 
 Rearrange:
+
 $$h'(t) = h(t)\left[r - rn - \frac{1}{2}\sigma^2 n(n-1)\right] = -h(t)\left[\frac{1}{2}\sigma^2 n(n-1) + r(n-1)\right]$$
 
 ### Boundary Condition
 
 At maturity $t = T$: $f(S,T) = S^n$, so $h(T,T) S^n = S^n$, giving:
+
 $$h(T,T) = 1$$
 
 ### Solve the ODE
@@ -511,12 +533,16 @@ Let $\alpha = \frac{1}{2}\sigma^2 n(n-1) + r(n-1)$. The ODE is:
 $$\frac{dh}{dt} = -\alpha h \implies h(t) = C e^{-\alpha t}$$
 
 Applying $h(T) = 1$:
+
 $$1 = C e^{-\alpha T} \implies C = e^{\alpha T}$$
 
 So:
+
 $$h(t,T) = e^{\alpha T} e^{-\alpha t} = e^{\alpha(T-t)}$$
 
-$$\boxed{h(t,T) = \exp\left\{\left[\frac{1}{2}\sigma^2 n(n-1) + r(n-1)\right](T-t)\right\}}$$ ✓
+$$\boxed{h(t,T) = \exp\left\{\left[\frac{1}{2}\sigma^2 n(n-1) + r(n-1)\right](T-t)\right\}}$$
+
+✓ Matches the form in the problem statement.
 
 ### Workflow Summary
 
@@ -563,6 +589,7 @@ where $c(K)$ is the BSM price of a standard European call with strike $K$.
 ### Generalized Payoff Replication (e.g., Hull Problem 8)
 
 Given payoff:
+
 $$Z = \begin{cases} 0, & S_T \leq K_1 \\ S_T - K_1, & K_1 < S_T \leq K_2 \\ K_2 - K_1, & S_T > K_2 \end{cases}$$
 
 **Replicate with European calls:**
@@ -608,6 +635,7 @@ $$Z = \max(S_T - K_1, 0) - \max(S_T - K_2, 0)$$
 - Itô isometry: $\text{Var}\left(\int_0^T b(t)\,dz\right) = \int_0^T b(t)^2\,dt$
 
 ### Itô's Lemma (GBM)
+
 $$dG = \left(\frac{\partial G}{\partial t} + \mu S\frac{\partial G}{\partial S} + \frac{1}{2}\sigma^2 S^2\frac{\partial^2 G}{\partial S^2}\right)dt + \sigma S\frac{\partial G}{\partial S}\,dz$$
 
 ### Black-Scholes-Merton
@@ -619,6 +647,7 @@ $$dG = \left(\frac{\partial G}{\partial t} + \mu S\frac{\partial G}{\partial S} 
 - With dividend yield: replace $S_0$ with $S_0 e^{-qT}$ in $c$, replace $r$ with $r-q$ in $d_1$ numerator
 
 ### Risk-Neutral Pricing
+
 $$f(0) = e^{-rT} \cdot \tilde{E}[\text{Payoff}_T]$$
 
 ### For $G = S^n$ (Under Risk-Neutral Measure)
